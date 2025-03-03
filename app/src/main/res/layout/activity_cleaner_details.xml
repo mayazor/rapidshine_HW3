@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get to know your cleaner"
+            android:textSize="24sp"
+            android:textColor="@color/text_black"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/statsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/titleText">
+
+            <TextView
+                android:id="@+id/ageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Age: 28"
+                android:textSize="18sp"
+                android:textColor="@color/text_dark"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/reviewsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="78 reviews"
+                android:textSize="18sp"
+                android:textColor="@color/text_dark"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/experienceText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Years of Experience: 2 years"
+                android:textSize="18sp"
+                android:textColor="@color/text_dark"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/cleansText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cleans Completed: 182 cleans"
+                android:textSize="18sp"
+                android:textColor="@color/text_dark"
+                android:layout_marginBottom="24dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/aboutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About Anna:"
+            android:textSize="20sp"
+            android:textColor="@color/text_black"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/statsContainer"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/aboutText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Meet Anna, your dedicated cleaner who not only excels at making homes spotless but also brings a cheerful presence into every room. Anna is a fitness enthusiast who loves yoga and believes in cleansing both the home and mind. Her attention to detail ensures a pristine environment where you can relax and rejuvenate."
+            android:textSize="16sp"
+            android:textColor="@color/text_dark"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/aboutTitle" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bookButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Book Anna Now"
+            android:textSize="18sp"
+            android:padding="16dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/aboutText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/chooseDifferentButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose a Different Cleaner"
+            android:textSize="18sp"
+            android:padding="16dp"
+            android:layout_marginTop="16dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:layout_constraintTop_toBottomOf="@id/bookButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView> 
