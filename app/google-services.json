@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "545925700489",
+    "project_id": "rapidshine-d1f0a",
+    "storage_bucket": "rapidshine-d1f0a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545925700489:android:ed5c7531d20af5936f9f58",
+        "android_client_info": {
+          "package_name": "com.example.rapidshine"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxxix-Soe1tNwQB_MR_WsTRNt2xrBLFeE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
