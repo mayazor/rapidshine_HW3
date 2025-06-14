@@ -2,6 +2,9 @@ package com.example.rapidshine;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,21 +13,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.RelativeSizeSpan;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import java.util.List;
+import android.os.Bundle;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder> {
 
     private List<Service> serviceList;
     private Context context;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public ServiceAdapter(List<Service> serviceList, Context context) {
         this.serviceList = serviceList;
         this.context = context;
+        this.mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
     }
 
     @NonNull
@@ -38,19 +41,24 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
     public void onBindViewHolder(@NonNull ServiceViewHolder holder, int position) {
         Service service = serviceList.get(position);
         
-        // Set service name
+        // Set text information
         holder.serviceName.setText(service.getName());
 
-        // Load and display the service image with proper scaling
+        // Load and display the image
         Glide.with(context)
             .load(service.getImageResource())
-            .apply(new RequestOptions()
-                .centerCrop()
-                .override(300, 300))  // Set a consistent size for grid images
             .into(holder.serviceImage);
 
-        // Handle click events - now shows dialog first
-        holder.itemView.setOnClickListener(v -> showSuppliesDialog(service));
+        // Handle click events
+        holder.itemView.setOnClickListener(v -> {
+            // Log service click event
+            Bundle params = new Bundle();
+            params.putString("service_name", service.getName());
+            params.putDouble("service_price", service.getPrice());
+            mFirebaseAnalytics.logEvent("service_clicked", params);
+            
+            showSuppliesDialog(service);
+        });
     }
 
     private void showSuppliesDialog(Service service) {
@@ -64,6 +72,12 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialog_Supplies);
         builder.setMessage(message)
             .setPositiveButton("Yes, please!", (dialog, which) -> {
+                // Log supplies selection event
+                Bundle params = new Bundle();
+                params.putString("service_name", service.getName());
+                params.putBoolean("bring_supplies", true);
+                mFirebaseAnalytics.logEvent("supplies_selection", params);
+
                 Intent intent = new Intent(context, LoadingCleanersActivity.class);
                 intent.putExtra("serviceName", service.getName());
                 intent.putExtra("serviceDescription", service.getDescription());
@@ -72,6 +86,12 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
                 context.startActivity(intent);
             })
             .setNegativeButton("No, I've got it covered!", (dialog, which) -> {
+                // Log supplies selection event
+                Bundle params = new Bundle();
+                params.putString("service_name", service.getName());
+                params.putBoolean("bring_supplies", false);
+                mFirebaseAnalytics.logEvent("supplies_selection", params);
+
                 Intent intent = new Intent(context, LoadingCleanersActivity.class);
                 intent.putExtra("serviceName", service.getName());
                 intent.putExtra("serviceDescription", service.getDescription());

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.button.MaterialButton;
 import java.util.List;
 
 public class CleanerAdapter extends RecyclerView.Adapter<CleanerAdapter.CleanerViewHolder> {
@@ -38,19 +39,27 @@ public class CleanerAdapter extends RecyclerView.Adapter<CleanerAdapter.CleanerV
         
         // Set text information
         holder.cleanerName.setText(cleaner.getName());
-        holder.hourlyRate.setText(String.format("$%.2f per hour", cleaner.getHourlyRate()));
+        holder.hourlyRate.setText(String.format("%.2f₪", cleaner.getHourlyRate()));
         holder.ratingBar.setRating(cleaner.getRating());
 
-        // Load and display the PNG image
-        Glide.with(context)
-            .load(cleaner.getImageResource())
-            .apply(new RequestOptions()
-                .centerCrop()
-                .transform(new CircleCrop()))
-            .into(holder.cleanerImage);
+        // Map imageName to drawable resource
+        int imageResId = context.getResources().getIdentifier(
+            cleaner.getImageName(), "drawable", context.getPackageName()
+        );
+        if (imageResId != 0) {
+            Glide.with(context)
+                .load(imageResId)
+                .apply(new RequestOptions()
+                    .centerCrop()
+                    .transform(new CircleCrop()))
+                .into(holder.cleanerImage);
+        } else {
+            // Optionally set a default image if not found
+            holder.cleanerImage.setImageResource(R.mipmap.ic_launcher);
+        }
 
-        // Handle click events
-        holder.itemView.setOnClickListener(v -> {
+        // Handle book button click
+        holder.bookButton.setOnClickListener(v -> {
             Intent intent = new Intent(context, CleanerDetailsActivity.class);
             intent.putExtra("cleanerName", cleaner.getName());
             context.startActivity(intent);
@@ -66,6 +75,7 @@ public class CleanerAdapter extends RecyclerView.Adapter<CleanerAdapter.CleanerV
         TextView cleanerName, hourlyRate;
         RatingBar ratingBar;
         ImageView cleanerImage;
+        MaterialButton bookButton;
 
         public CleanerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +83,7 @@ public class CleanerAdapter extends RecyclerView.Adapter<CleanerAdapter.CleanerV
             hourlyRate = itemView.findViewById(R.id.hourlyRate);
             ratingBar = itemView.findViewById(R.id.ratingBar);
             cleanerImage = itemView.findViewById(R.id.profileImage);
+            bookButton = itemView.findViewById(R.id.bookButton);
         }
     }
 }

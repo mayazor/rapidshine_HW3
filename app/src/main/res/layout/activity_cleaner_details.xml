@@ -65,6 +65,16 @@
                 android:text="Cleans Completed: 182 cleans"
                 android:textSize="18sp"
                 android:textColor="@color/text_dark"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/hourlyRateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25.99₪ per hour"
+                android:textSize="18sp"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
                 android:layout_marginBottom="24dp" />
         </LinearLayout>
 
