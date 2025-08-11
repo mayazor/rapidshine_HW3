@@ -17,6 +17,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import java.util.List;
 import android.os.Bundle;
+import android.util.Log;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder> {
 
@@ -40,17 +41,21 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
     @Override
     public void onBindViewHolder(@NonNull ServiceViewHolder holder, int position) {
         Service service = serviceList.get(position);
+        Log.d("ServiceAdapter", "Binding service at position " + position + ": " + service.getName());
         
         // Set text information
         holder.serviceName.setText(service.getName());
+        Log.d("ServiceAdapter", "Set service name: " + service.getName());
 
         // Load and display the image
         Glide.with(context)
             .load(service.getImageResource())
             .into(holder.serviceImage);
+        Log.d("ServiceAdapter", "Loading image for service: " + service.getName() + " with resource: " + service.getImageResource());
 
         // Handle click events
         holder.itemView.setOnClickListener(v -> {
+            Log.d("ServiceAdapter", "Service clicked: " + service.getName());
             // Log service click event
             Bundle params = new Bundle();
             params.putString("service_name", service.getName());
@@ -106,7 +111,9 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
 
     @Override
     public int getItemCount() {
-        return serviceList.size();
+        int count = serviceList.size();
+        Log.d("ServiceAdapter", "getItemCount called, returning: " + count);
+        return count;
     }
 
     static class ServiceViewHolder extends RecyclerView.ViewHolder {

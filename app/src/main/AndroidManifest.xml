@@ -2,6 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" 
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" 
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,8 +25,9 @@
         android:theme="@style/Theme.Rapidshine"
         tools:targetApi="31">
 
+        <!-- LoginActivity as launcher -->
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,12 +35,30 @@
             </intent-filter>
         </activity>
 
+        <!-- EmailVerificationActivity -->
+        <activity android:name=".EmailVerificationActivity" />
+
+        <!-- MainActivity as secondary activity -->
+        <activity android:name=".MainActivity" />
+        <activity android:name=".EmailVerificationActivity" />
+        <activity android:name=".CameraActivity" />
         <activity android:name=".ServiceDetailsActivity" />
         <activity android:name=".CleanerSelectionActivity" />
         <activity android:name=".LoadingCleanersActivity" />
         <activity android:name=".CleanerDetailsActivity" />
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.rapidshine.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
+
 </manifest>
 
 

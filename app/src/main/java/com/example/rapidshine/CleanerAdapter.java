@@ -2,6 +2,7 @@ package com.example.rapidshine;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,40 +36,65 @@ public class CleanerAdapter extends RecyclerView.Adapter<CleanerAdapter.CleanerV
 
     @Override
     public void onBindViewHolder(@NonNull CleanerViewHolder holder, int position) {
-        Cleaner cleaner = cleanerList.get(position);
-        
-        // Set text information
-        holder.cleanerName.setText(cleaner.getName());
-        holder.hourlyRate.setText(String.format("%.2f₪", cleaner.getHourlyRate()));
-        holder.ratingBar.setRating(cleaner.getRating());
-
-        // Map imageName to drawable resource
-        int imageResId = context.getResources().getIdentifier(
-            cleaner.getImageName(), "drawable", context.getPackageName()
-        );
-        if (imageResId != 0) {
-            Glide.with(context)
-                .load(imageResId)
-                .apply(new RequestOptions()
-                    .centerCrop()
-                    .transform(new CircleCrop()))
-                .into(holder.cleanerImage);
-        } else {
-            // Optionally set a default image if not found
-            holder.cleanerImage.setImageResource(R.mipmap.ic_launcher);
+        if (cleanerList == null || position >= cleanerList.size()) {
+            Log.e("CleanerAdapter", "Invalid position or null list: " + position);
+            return;
         }
 
-        // Handle book button click
-        holder.bookButton.setOnClickListener(v -> {
-            Intent intent = new Intent(context, CleanerDetailsActivity.class);
-            intent.putExtra("cleanerName", cleaner.getName());
-            context.startActivity(intent);
-        });
+        Cleaner cleaner = cleanerList.get(position);
+        if (cleaner == null) {
+            Log.e("CleanerAdapter", "Cleaner is null at position: " + position);
+            return;
+        }
+        
+        try {
+            // Set text information with null checks
+            if (cleaner.getName() != null) {
+                holder.cleanerName.setText(cleaner.getName());
+            } else {
+                holder.cleanerName.setText("Unknown Cleaner");
+            }
+            
+            holder.hourlyRate.setText(String.format("%.2f₪", cleaner.getHourlyRate()));
+            holder.ratingBar.setRating(cleaner.getRating());
+
+            // Map imageName to drawable resource
+            if (cleaner.getImageName() != null) {
+                int imageResId = context.getResources().getIdentifier(
+                    cleaner.getImageName(), "drawable", context.getPackageName()
+                );
+                if (imageResId != 0) {
+                    Glide.with(context)
+                        .load(imageResId)
+                        .apply(new RequestOptions()
+                            .centerCrop()
+                            .transform(new CircleCrop()))
+                        .into(holder.cleanerImage);
+                } else {
+                    Log.w("CleanerAdapter", "Image not found: " + cleaner.getImageName());
+                    holder.cleanerImage.setImageResource(R.mipmap.ic_launcher);
+                }
+            } else {
+                Log.w("CleanerAdapter", "ImageName is null for cleaner: " + cleaner.getName());
+                holder.cleanerImage.setImageResource(R.mipmap.ic_launcher);
+            }
+
+            // Handle book button click
+            holder.bookButton.setOnClickListener(v -> {
+                Intent intent = new Intent(context, CleanerDetailsActivity.class);
+                intent.putExtra("cleanerName", cleaner.getName());
+                context.startActivity(intent);
+            });
+            
+            Log.d("CleanerAdapter", "Successfully bound cleaner: " + cleaner.getName());
+        } catch (Exception e) {
+            Log.e("CleanerAdapter", "Error binding cleaner at position " + position, e);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return cleanerList.size();
+        return cleanerList != null ? cleanerList.size() : 0;
     }
 
     static class CleanerViewHolder extends RecyclerView.ViewHolder {

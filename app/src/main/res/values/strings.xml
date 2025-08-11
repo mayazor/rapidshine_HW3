@@ -1,3 +1,61 @@
 <resources>
-    <string name="app_name">rapidshine</string>
+    <string name="app_name">RapidShine</string>
+    <!-- 
+    TODO: Replace with your actual OAuth Client ID from Google Cloud Console
+    1. Go to Google Cloud Console → APIs & Services → Credentials
+    2. Find the OAuth 2.0 Client ID for your Android app
+    3. Copy the Client ID and replace the xxxxxxxx part below
+    Example: 545925700489-abcdefghijklmnopqrstuvwxyz123456.apps.googleusercontent.com
+    -->
+    <string name="default_web_client_id">545925700489-735rcma9o0lc17t5tsd8bgda527kc4qb.apps.googleusercontent.com</string>
+    
+    <!-- Cleaner Details Strings -->
+    <string name="age_format">Age: %d</string>
+    <string name="reviews_format">Reviews: %d</string>
+    <string name="experience_format">Experience: %d years</string>
+    <string name="cleans_completed_format">Cleans completed: %d</string>
+    <string name="about_format">About %s</string>
+    <string name="hourly_rate_format">$%d/hour</string>
+    
+    <!-- Cleaner Names -->
+    <string name="cleaner_sarah_johnson">Sarah Johnson</string>
+    <string name="cleaner_john_smith">John Smith</string>
+    <string name="cleaner_anna_davis">Anna Davis</string>
+    
+    <!-- Cleaner Descriptions -->
+    <string name="sarah_description">Sarah is a dedicated professional with 5 years of experience in residential cleaning. She specializes in deep cleaning and is known for her attention to detail.</string>
+    <string name="john_description">John has been in the cleaning industry for 7 years. He\'s efficient, reliable, and takes pride in leaving homes spotless.</string>
+    <string name="anna_description">Anna is a young professional who brings energy and enthusiasm to every job. She\'s particularly good with pet-friendly homes.</string>
+    <string name="default_cleaner_description">Professional cleaner with years of experience in residential cleaning.</string>
+    
+    <!-- Button Texts -->
+    <string name="book_now">Book Now</string>
+    <string name="choose_different">Choose Different</string>
+    
+    <!-- Login Strings -->
+    <string name="welcome_message">Welcome to RapidShine</string>
+    <string name="create_account_message">Create an account or sign in</string>
+    <string name="full_name_hint">Your Full Name *</string>
+    <string name="email_hint">Email Address *</string>
+    <string name="password_hint">Password *</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="or_divider">OR</string>
+    <string name="enter_details_message">Enter your details to get started</string>
+    
+    <!-- Email Verification Strings -->
+    <string name="verify_email_title">Verify Your Email</string>
+    <string name="verification_instructions">We\'ve sent a verification link to your email address. Please check your inbox and click the link to verify your account.</string>
+    <string name="resend_verification">Resend Verification Email</string>
+    <string name="verified_button">I\'ve Verified My Email</string>
+    <string name="back_to_login">Back to Login</string>
+    <string name="waiting_verification">Waiting for email verification...</string>
+    
+    <!-- Status Messages -->
+    <string name="creating_account">Creating account...</string>
+    <string name="signing_in">Signing in...</string>
+    <string name="sending_verification">Sending verification email...</string>
+    <string name="verification_sent">Verification email sent. Please check your inbox.</string>
+    <string name="email_verified_welcome">Email verified! Welcome to RapidShine!</string>
+    <string name="logged_out_success">Logged out successfully</string>
 </resources>
